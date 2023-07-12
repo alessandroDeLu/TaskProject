@@ -1,0 +1,21 @@
+<div class="container">
+    <form class="form">  
+      <h1 class="form-title">Sign up</h1>
+  
+      <label class="input-container">
+        <input matInput placeholder="Enter email" (change)="onReadMail($event)">
+        <span></span>
+      </label>
+  
+      <label class="input-container">
+        <input type="password" matInput placeholder="Enter password" (change)="onReadPassword($event)">
+      </label>
+  
+      <label class="input-container">
+        <input type="password" matInput placeholder="Confirm password" (change)="onReadPasswordConfirmed($event)">
+      </label>
+  
+      <input type="button" class="submit" value="Sign up" (click)="onClickSignUp($event)">
+      <p class="errorMsg" *ngIf="noValue">{{ errorMessage }}</p>
+    </form>
+</div>  

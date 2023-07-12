@@ -1,0 +1,20 @@
+.title{
+    font-family: cursive;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.home-icon{
+    margin-right: 20px;
+}
+
+.mat-toolbar{
+    background: linear-gradient(54deg, rgba(214,167,60,1) 0%, rgba(196,177,57,1) 72%)!important;
+}
+
+.mail-user{
+    text-decoration: underline;
+    font-weight: bold;
+}

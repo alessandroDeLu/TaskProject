@@ -1,0 +1,9 @@
+.container{
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+}
+
+h1{
+    text-align: center;
+}
