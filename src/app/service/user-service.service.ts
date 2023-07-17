@@ -8,6 +8,7 @@ import { Utente } from '../entity/utente';
 export class UserServiceService {
 
   userLogged!: Utente;
+  userLoggedVerified = false;
 
   gestioneUtente = new GestioneUtente();
 
@@ -16,5 +17,9 @@ export class UserServiceService {
   addUser(e: Utente){ // metodo per assegnare il valore dell'utente attributo della classe al valore dell'utente preso in ingresso e per aggiungere un utente alla lista presente in gestioneUtente
     this.userLogged = e; //
     this.gestioneUtente.addUserToList(this.userLogged); 
+  }
+
+  isVerified(userLogVerify: boolean){ //metodo per modificare il valore booleano a true , viene utilizzato nella home component
+    this.userLoggedVerified = userLogVerify;
   }
 }

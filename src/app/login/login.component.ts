@@ -100,6 +100,7 @@ export class LoginComponent implements OnInit{
 
         //CONTROLLO SE UTENTE PRESENTE NELLA LISTA UTENTI REGISTRATI
         if(userTrovato){
+          this.userService.isVerified(true);
           this.router.navigateByUrl("/home")//utilizzo il routing attraverso il router istanziato nel costruttore
         }else{
           this.emptyValue = true;

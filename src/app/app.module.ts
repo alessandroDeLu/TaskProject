@@ -12,6 +12,8 @@ import { DialogComponent } from './dialog/dialog.component';
 import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
 import { HomeComponent } from './home/home.component';
 import { ToolbarBasicExample } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ToolbarBasicExample } from './header/header.component';
     DialogComponent,
     DialogModalComponent,
     HomeComponent,
-    ToolbarBasicExample
+    ToolbarBasicExample,
+    FooterComponent,
+    TaskListComponent
   ],
   providers: [], // SEZIONE DEI SERVICES
   bootstrap: [AppComponent]

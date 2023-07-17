@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="box">
+        <h1>MY ANGULAR TODO LIST</h1>
+        <div class="tasker">
+            <input type="text" placeholder="Enter task" (input)="onReadValue($event)">
+            <input class="checkbox" type="checkbox" (input)="onReadValueCheckbox($event)"><span class="priority">HP</span>
+            <button (click)="onClick($event)"><span>+</span>ADD</button>
+        </div>
+    
+        <div class="task-box" *ngFor="let task of taskList">
+            <span [ngClass]="{'box-task-done': task.completed}" class="task">
+                <span [ngClass]="{'task-done': task.completed}">{{ task.name }}</span> <!-- Se l'attriubto completed è true parola sbarrata altrimenti no -->
+                <div class="switch-box" [ngSwitch]="task.priority">
+                    <p *ngSwitchCase="'high'" class="hp">HP</p>
+                    <p *ngSwitchCase="'normal'" class="np">NP</p>
+                </div>
+                <span [ngClass]="{'completed-btn': task.completed}" class="done-button" (click)="onClickDone(task)">Done</span>
+            </span>
+        </div>
+    </div>
+</div>
