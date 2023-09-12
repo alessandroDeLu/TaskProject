@@ -1,16 +1,10 @@
 <mat-toolbar>
-    <img src="/assets/img/logo.png" alt="image">
-    <span class="title">My angular app</span>
+    <img class="site-logo" src="/assets/img/logo.png" alt="image">
+    <span class="title">TaskHub</span>
     <span class="example-spacer"></span>
-    <span>Benvenuto <span class="mail-user" *ngIf="isUserLogged else bloccoElse">{{ userLogged.email }}</span></span>
-    <ng-template #bloccoElse>
-        <span>utente</span>
-    </ng-template>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
+    <span>Benvenuto <span class="mail-user">{{ mailUser }}</span></span>
+    <button mat-icon-button class="example-icon logout-btn" (click)="onLogout($event)">
+      <img src="/assets/img/logout.png">
     </button>
   </mat-toolbar>
   

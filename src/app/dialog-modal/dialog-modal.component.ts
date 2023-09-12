@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 import { Utente } from '../entity/utente';
 
-import { UserServiceService } from '../service/user-service.service';
-
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpServiceService } from '../service/http-service.service';
 
 @Component({
   selector: 'app-dialog-modal',
@@ -15,7 +15,7 @@ import { BrowserModule } from '@angular/platform-browser';
   standalone: true
 })
 export class DialogModalComponent {
-  constructor(private userService: UserServiceService){}
+  constructor(private dialog: MatDialog , private httpService: HttpServiceService){} //istanzio nel costruttore il service creato per la chiamata http
 
   email = "";
   password = "";
@@ -39,19 +39,20 @@ export class DialogModalComponent {
   mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   psswRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/;
 
-  onReadMail(e: Event){
+  onReadMail(e: Event){//prendo valore mail
     this.email = (<HTMLInputElement>e.target).value;
   }
 
-  onReadPassword(e: Event){
+  onReadPassword(e: Event){//prendo valore pssw
     this.password = (<HTMLInputElement>e.target).value;
   }
 
-  onReadPasswordConfirmed(e: Event){
+  onReadPasswordConfirmed(e: Event){//prendo valore conferma pssw
     this.passwordConfirmed = (<HTMLInputElement>e.target).value;
   }
 
-  onClickSignUp(e: Event){
+  onClickSignUp(e: Event){ //evento al click
+    this.finalError = "";
     if(!this.email && !this.password && !this.passwordConfirmed){
       this.noValue = true;
     }else if(!this.email){
@@ -93,30 +94,32 @@ export class DialogModalComponent {
         this.errorMessage = this.finalError
       }else{
         this.resultConfirmPssw=true;
-      }
+      } //controlli sui campi
 
       if(this.resultPssw && this.resultMail && this.resultConfirmPssw){
         this.errorMessage = '';
-        let utenteRegistrato = false;
+        let newUser = new Utente(this.email, this.password);//istanzio l'oggetto user
 
-        let newUser = new Utente(this.email, this.password);
-
-        for(let utente of this.userService.gestioneUtente.listaUtenti){
-          if(utente.email == newUser.email && utente.password == newUser.password){
-            utenteRegistrato = true;
+        this.httpService.insertUser("http://localhost:8080/register" , newUser).subscribe((data: any) => {
+          //dal service http utilizzo il metodo insertUser per la chiamata post , la funzione subscribe viene utilizzata per sottoscriversi all'Observable restituito dalla chiamata HTTP, consentendo di ottenere la risposta del server
+          if(data.hasOwnProperty("message")){//se l'oggetto data ha una chiave chiamata "message" mostrami il messaggio.
+            this.noValue = true;
+            this.errorMessage = data["message"];
+            setTimeout(function(){
+              location.reload();
+            } , 1300)
+          }else if(data.hasOwnProperty("error")){
+            this.noValue = true;
+            this.errorMessage = data["error"]
           }
-        }
-
-        if(utenteRegistrato){
-          alert("Utente gia registrato");
-        }else{
-          this.userService.addUser(newUser); //aggiungo utente alla lista e salvo l'utente come attributo nella classe del servizio
-          alert("Utente registrato con successo");
-        }
+        });
 
       }
 
     }
+  }
 
+  onClickCloseModal(e: Event){ //chiusura modal al click della x
+    this.dialog.closeAll();
   }
 }

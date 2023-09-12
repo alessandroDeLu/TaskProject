@@ -1,11 +1,11 @@
-import { Component , OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
-
-import { UserServiceService } from '../service/user-service.service';
+import { HttpServiceService } from '../service/http-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,16 +16,26 @@ import { UserServiceService } from '../service/user-service.service';
 })
 export class ToolbarBasicExample implements OnInit{
 
-  constructor(public userService: UserServiceService){}
+  constructor(private router: Router, private httpService: HttpServiceService){}
 
-  userLogged = this.userService.userLogged; //valore dell user loggato
+  mailUser: any;
 
-  isUserLogged = false;
+  ngOnInit(): void {
+    this.mailUser = window.sessionStorage.getItem("user");//mostra mail utente loggato sulla navbar
+  }
 
-  ngOnInit(): void { //all'inizializzazione del componente verifico se l'utente che si logga si è registrato oppure era uno di qeulli fittizi
-    if(this.userLogged != null){
-      this.isUserLogged = true;
-    }
+  onLogout(e: Event){
+    let url = "http://localhost:8080/exit";
+    let httpOptions = { withCredentials: true };//oggetto che contiene alcune opzioni da utilizzare nella richiesta HTTP. Con true vengono inclusi i cookie di sessione nella richiesta http
+
+    this.httpService.logout(url, {}, httpOptions).subscribe((result: any) => {
+      if(result["userAuth"] == null){//se la mail dell utente proveniente dall'autenticazione invalidata è null
+        alert(result["message"]);
+        window.sessionStorage.clear();
+        this.router.navigate([""]);//torna alla login page
+      }
+
+    })
   }
 
 }

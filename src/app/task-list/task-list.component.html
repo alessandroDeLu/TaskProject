@@ -1,21 +1,67 @@
 <div class="container">
-    <div class="box">
-        <h1>MY ANGULAR TODO LIST</h1>
+    <div class="box" [ngStyle]="{ 'border-radius': firstButton ? '102px 0px' : '0px 102px',
+     'box-shadow': firstButton ? '20px 20px 2px 2px rgba(0,0,0,.2)' : '-20px 20px 2px 2px rgba(0,0,0,.2)'}">
+        <div class="task-type-box">
+            <button [ngClass]="{'active': firstButton}" (click)="onClickFirstBtn($event)" class="task-btn btn-first">Task List</button>
+            <button [ngClass]="{'active': !firstButton}" (click)="onClickSecondBtn($event)" class="task-btn btn-second">Completed tasks</button>
+        </div>
+        <h1>YourTaskMaster</h1>
         <div class="tasker">
-            <input type="text" placeholder="Enter task" (input)="onReadValue($event)">
-            <input class="checkbox" type="checkbox" (input)="onReadValueCheckbox($event)"><span class="priority">HP</span>
-            <button (click)="onClick($event)"><span>+</span>ADD</button>
+
+            <label>Task name
+                <input type="text" placeholder="Enter task" (input)="onReadValue($event)">
+            </label>
+
+            <label class="priority">Priorità
+                <input class="checkbox" type="checkbox" (input)="onReadValueCheckbox($event)">
+            </label>
+
+            <label>Scadenza
+                <input class="data-scadenza" type="date" (input)="onReadDate($event)">
+            </label> 
+
+            <button class="btn" (click)="onClick($event)"><span>+</span></button>
+
         </div>
     
+        <div class="sort-icon dropdown">
+            <button (click)="onClickDropDown($event)" class="dropdown-button">Ordina: <span>{{ orderBy }}</span> <img src="/assets/img/dropdown-arrow.png"></button>
+        </div>
+        <div class="dropdown-box">
+            <div *ngIf="dropDownVisible" class="dropdown-content">
+                <p #priority (click)="onClickPriority($event)">Priorità</p>
+                <div class="hr"></div>
+                <p #date (click)="onClickDate($event)">Data scadenza</p>
+            </div>
+        </div>
+
+
         <div class="task-box" *ngFor="let task of taskList">
-            <span [ngClass]="{'box-task-done': task.completed}" class="task">
-                <span [ngClass]="{'task-done': task.completed}">{{ task.name }}</span> <!-- Se l'attriubto completed è true parola sbarrata altrimenti no -->
-                <div class="switch-box" [ngSwitch]="task.priority">
-                    <p *ngSwitchCase="'high'" class="hp">HP</p>
-                    <p *ngSwitchCase="'normal'" class="np">NP</p>
+            <span [ngClass]="{'task-completed': task.completata}" class="task"> 
+                <div>
+                    <span [ngClass]="{'description-completed': task.completata}">{{ task.descrizione }}</span>
+                    <span [ngClass]="{'description-completed': task.completata}" class="scadenza"> (entro il {{ task.dataScadenza }})</span>
                 </div>
-                <span [ngClass]="{'completed-btn': task.completed}" class="done-button" (click)="onClickDone(task)">Done</span>
+
+                <span class="task-icon">
+                    <img *ngIf="task.taskPriority" class="icon-priority" src="/assets/img/priority.png" alt="priority" title="Priority task">
+
+                    <div [ngClass]="{'completed': task.completata, 'check-circle': !task.completata }" (click)="onClickCompleted($event , task.id)">
+                        <span *ngIf="task.completata" class="v-shape">&#10004;</span>
+                    </div>
+
+                    <button class="delete" color="primary" aria-label="Example icon button with a delete icon" (click)="onClickDelete($event , task.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </span>
+
             </span>
         </div>
+
+        <div class="download" (click)="onClickDownload($event)">
+            <img src="/assets/img/download.png" alt="download">
+            <span>Download report</span>
+        </div>
+
     </div>
 </div>

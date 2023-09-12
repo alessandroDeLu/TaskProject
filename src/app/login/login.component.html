@@ -4,7 +4,6 @@
 
       <label class="input-container">
         <input matInput placeholder="Enter email" (change)="onReadMail($event)">
-        <span></span>
       </label>
   
       <label class="input-container">
@@ -14,5 +13,14 @@
       <input type="button" class="submit" value="Sign in" (click)="onClickLogin($event)">
       <p class="errorMsg" *ngIf="emptyValue">{{ errorMessage }}</p> <!-- *ngIf se emptyValue è true allora mostrami il valore di errorMessage -->
       <dialog-component></dialog-component>
+
+      <div class="hr-box">
+        <div class="hr"></div>
+        <span style="margin-bottom: 4px;">or</span>
+        <div class="hr"></div>
+      </div>
+
+      <asl-google-signin-button type="standard" size="large" width="350" shape="square"></asl-google-signin-button>
+
     </form>
 </div>  

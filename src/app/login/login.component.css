@@ -30,7 +30,7 @@
     padding: 2rem;
     max-width: 350px;
     border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+    box-shadow: 10px 15px 15px -3px rgba(0, 0, 0, 0.3), -10px -6px 8px -2px rgba(0, 0, 0, 0.2);
 }
   
 .form-title {
@@ -38,7 +38,7 @@
     line-height: 1.75rem;
     font-weight: 600;
     text-align: center;
-    color: #000;
+    color: brown;
 }
   
 .input-container {
@@ -57,10 +57,15 @@
     padding-right: 3rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
-    width: 300px;
+    width: 81%;
     border-radius: 0.5rem;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
+
+.input-container input:focus{
+    border: 1px solid #cc9650;
+}
+
   
 .submit {
     display: block;
@@ -68,7 +73,7 @@
     padding-bottom: 0.75rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-    background-color: #4F46E5;
+    background-color: #cc9650;
     color: #ffffff;
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -80,5 +85,38 @@
 }
 
 .submit:hover{
-    box-shadow: inset 0 0 25px #211d64;
+    box-shadow: inset 0 0 25px #9e753f;
+}
+
+.hr-box{
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.hr{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    width: 50%;
+}
+
+.google-login-box{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 10px;
+    gap: 5px;
+}
+
+.google-login-box span{
+    font-size: 1rem;
+}
+
+.google-login-box:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.05);
 }

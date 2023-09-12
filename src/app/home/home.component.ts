@@ -7,7 +7,6 @@ import { ToolbarBasicExample } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { TaskListComponent } from '../task-list/task-list.component';
 
-import { UserServiceService } from '../service/user-service.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,12 +18,12 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit{
 
-  constructor(public userService: UserServiceService, public router: Router){}
+  constructor(public router: Router){}
 
-   ngOnInit(): void { //se l'attributo  nel service, che viene verificato al login, è false allora ritorna alla pagina di login
-    if(!this.userService.userLoggedVerified){
+  ngOnInit(): void { 
+   if(window.sessionStorage.getItem("user") == null){//se il valore dell attributo utenteLoggato salvato nel sessionStorage, che viene assegnato al login, è null allora ritorna alla pagina di login
       this.router.navigate(['']);
-    }
+    } 
   }  
 
 

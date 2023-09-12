@@ -8,5 +8,5 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background-color: antiquewhite;
+  background: radial-gradient(circle, rgba(250, 235, 215, 0.305) 20%, rgba(240, 182, 10, 0.348) 82%);
 }

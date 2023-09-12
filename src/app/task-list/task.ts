@@ -1,3 +1,11 @@
 export class Task{
-    constructor(public name: string, public checked: boolean, public priority: string, public completed: boolean) {}
+
+    id: any;
+
+    constructor(public descrizione: string, public dataScadenza: any, public completata: boolean, public taskPriority: boolean, public user: any) {}
+
+    setId(taskId: any){
+        this.id = taskId;
+    }
+
 }
