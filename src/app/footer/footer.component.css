@@ -175,6 +175,11 @@ a:hover{
     flex-direction: column;
 }
 
+.left a:hover{
+    text-decoration: none!important;
+    color: #ce5c0c!important;
+}
+
 .active-line{
     border: 2px solid brown;
     width: 100%;
